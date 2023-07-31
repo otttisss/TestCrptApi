@@ -79,4 +79,23 @@ public class CrptApi {
             lock.notifyAll(); // Оповещение потоков
         }
     }
+
+    public static void main(String[] args) {
+        // Создание экземпляра CrptApi с ограничением 3 запроса в секунду
+        CrptApi crptApi = new CrptApi(TimeUnit.SECONDS, 3);
+
+        try {
+            // Тестовые данные - объект и подпись
+            Object document = new Object();
+            String signature = "signature";
+
+            crptApi.createDocument(document, signature); // Вызов метода createDocument для отправки запроса к API
+
+            System.out.println("Документ успешно отправлен к API Честного знака.");
+        } catch (IOException e) {
+            // Обработка исключения, если произошла ошибка при отправке запроса
+            System.err.println("Ошибка при отправке документа к API Честного знака: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
